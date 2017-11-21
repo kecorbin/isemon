@@ -8,8 +8,11 @@ from views.authstatus import authstatus_detail
 from api.session import ActiveCount, ActiveList, MacAddress
 from api.troubleshooting import AuthStatus, FailureReason
 
+from flask_restful_swagger import swagger
+
 app = Flask(__name__)
-api = Api(app)
+# api = Api(app)
+api = swagger.docs(Api(app), apiVersion='0.1')
 
 @app.route('/')
 def index():

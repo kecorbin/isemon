@@ -9,6 +9,8 @@ from models.failurereason import FailureReasonObject
 # test data
 import sample_data
 
+from flask_restful_swagger import swagger
+
 headers = {
     'content-type': "application/xml",
     'accept': "application/xml",
@@ -58,6 +60,25 @@ class AuthStatus(Resource):
         return d
 
 class FailureReason(Resource):
+    "Describing elephants"
+
+    @swagger.operation(
+        notes='some really good notes about a failure reason',
+        responseClass=FailureReasonObject.__name__,
+        nickname='failurereason',
+        responseMessages=[
+            {
+              "code": 200,
+              "message": "everything looks good"
+            },
+            {
+              "code": 405,
+              "message": "Invalid input"
+            },
+            { "code": 500,
+              "message": "rur roh"}
+          ]
+        )
     def get(self):
         uri = '/admin/API/mnt/FailureReasons'
         url = "https://172.26.159.217" + uri

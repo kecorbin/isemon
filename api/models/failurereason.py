@@ -1,5 +1,8 @@
+from flask_restful_swagger import swagger
 
+@swagger.model
 class FailureReasonObject(object):
+
 
     def __init__(self, **kwargs):
         self._attributes = kwargs
