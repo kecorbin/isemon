@@ -1,6 +1,7 @@
 # encoding=utf8
 from flask import Flask, render_template, request
-from flask_restful import Api
+# from flask_restful import Api
+
 from views.session import session_list
 from views.patterns import patterns
 from views.authstatus import authstatus_detail
@@ -9,11 +10,17 @@ from views.apidocs import swagger_ui
 from api.session import ActiveCount, ActiveList, MacAddress
 from api.troubleshooting import AuthStatus, FailureReason
 
-from flask_restful_swagger import swagger
+from flask_restful_swagger_2 import swagger, Api
 
 app = Flask(__name__)
-# api = Api(app)
-api = swagger.docs(Api(app), apiVersion='0.1')
+
+api = Api(app,
+          api_version='0.1',
+          title="Maverick",
+          api_spec_url='/api/swagger',
+          description="Maverick API for Cisco Identity Services Engine"
+          )
+
 
 @app.route('/')
 def index():

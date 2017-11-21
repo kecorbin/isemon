@@ -5,11 +5,11 @@ import requests
 from lxml import etree
 import xmltodict
 import json
-from models.failurereason import FailureReasonObject
+from models.failurereason import FailureReasonObject, FailureReasonSwaggerModel
 # test data
 import sample_data
 
-from flask_restful_swagger import swagger
+from flask_restful_swagger_2 import swagger
 
 headers = {
     'content-type': "application/xml",
@@ -60,26 +60,24 @@ class AuthStatus(Resource):
         return d
 
 class FailureReason(Resource):
-    "Describing elephants"
+    @swagger.doc({
+        'tags': ['troubleshooting'],
+        'description': 'Common Failure Reasons',
+        'responses': {
+            '200': {
+                'description': 'everything looks good',
+                'schema': FailureReasonSwaggerModel,
+                'examples': {
+                    'application/json': {
+                        'id': '@1001',
+                        'code': 'some cause',
+                        'cause': "some resolution"
+                    }
+                }
+            }
+        }
+     })
 
-    @swagger.operation(
-        notes='some really good notes about a failure reason',
-        responseClass=FailureReasonObject.__name__,
-        nickname='failurereason',
-        responseMessages=[
-            {
-              "code": 200,
-              "message": "everything looks good"
-            },
-            {
-              "code": 405,
-              "message": "Invalid input"
-            },
-            { "code": 500,
-              "message": "rur roh"}
-          ]
-        )
-    @marshal_with(FailureReasonObject.resource_fields)
     def get(self):
         uri = '/admin/API/mnt/FailureReasons'
         url = "https://172.26.159.217" + uri
