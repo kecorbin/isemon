@@ -1,0 +1,1 @@
+from authstatus import authstatus_detail

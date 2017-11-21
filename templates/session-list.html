@@ -1,0 +1,31 @@
+{% extends 'base_layout.html' %}
+{% set active_sidebar = "session-list" %}
+
+{% block mainpanel %}
+<div class="container">
+  <h1>Active Session List</h1>
+  <hr>
+  <div class="responsive-table">
+      <table id="session-datatable" class="table table--bordered">
+          <thead>
+              <tr>
+                  <th>Session ID</th>
+                  <th>MAC Address</th>
+                  <th>Username</th>
+                  <th>NAS IP Address</th>
+                  <th>Server</th>
+              </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+      </table>
+  </div>
+</div>
+
+<!-- table data will be populated dynamically by jquery/datatables -->
+<script src="/static/js/session-table.js"></script>
+{% endblock %}
+
+<!-- disable footer for this page  -->
+{% block footer %}{% endblock %}
