@@ -1,6 +1,6 @@
 # encoding=utf8
 import sys
-from flask_restful import Resource
+from flask_restful import Resource, marshal_with
 import requests
 from lxml import etree
 import xmltodict
@@ -79,6 +79,7 @@ class FailureReason(Resource):
               "message": "rur roh"}
           ]
         )
+    @marshal_with(FailureReasonObject.resource_fields)
     def get(self):
         uri = '/admin/API/mnt/FailureReasons'
         url = "https://172.26.159.217" + uri

@@ -1,8 +1,13 @@
 from flask_restful_swagger import swagger
+from flask_restful import fields
 
 @swagger.model
 class FailureReasonObject(object):
-
+    resource_fields = {
+      '@id': fields.String,
+      'code': fields.String,
+      'cause': fields.String
+      }
 
     def __init__(self, **kwargs):
         self._attributes = kwargs
