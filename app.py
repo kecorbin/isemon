@@ -4,6 +4,7 @@ from flask_restful import Api
 from views.session import session_list
 from views.patterns import patterns
 from views.authstatus import authstatus_detail
+from views.apidocs import swagger_ui
 
 from api.session import ActiveCount, ActiveList, MacAddress
 from api.troubleshooting import AuthStatus, FailureReason
@@ -37,7 +38,7 @@ api.add_resource(FailureReason, '/api/failurereason')
 app.add_url_rule('/session', endpoint='session-list', view_func=session_list)
 app.add_url_rule('/patterns', endpoint='patterns', view_func=patterns)
 app.add_url_rule('/authstatus-test', endpoint='authstatus-detail', view_func=authstatus_detail)
-
+app.add_url_rule('/apidocs', endpoint='api-docs', view_func=swagger_ui)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)
