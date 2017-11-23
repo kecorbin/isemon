@@ -6,17 +6,15 @@ from lxml import etree
 import xmltodict
 import json
 from models.failurereason import FailureReasonObject, FailureReasonSwaggerModel
-# test data
-import sample_data
-
 from flask_restful_swagger_2 import swagger
 
-headers = {
-    'content-type': "application/xml",
-    'accept': "application/xml",
-    'authorization': "Basic YWRtaW46V3d3cHJ0cDAz",
-    'cache-control': "no-cache",
-    }
+if __name__ == '__main__':
+    if __package__ is None:
+        sys.path.append(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        )
+
+from services import ise
 
 
 class AuthStatus(Resource):
@@ -43,21 +41,13 @@ class AuthStatus(Resource):
         print("Searching history for {} in the last {} seconds.".format(mac_address,
                                                                         duration))
 
-        # if mac_address:
-        #     uri = "/admin/API/mnt/AuthStatus/MACAddress/{}/{}/{}/{}".format(mac_address,
-        #                                                                     duration,
-        #                                                                     num_records,
-        #                                                                     verbosity)
-        # else:
-        #     uri = '/admin/API/mnt/AuthStatus'
-        # url = "https://172.26.159.217" + uri
-        #response = requests.get(url, headers=headers, verify=False)
-        #d = xmltodict.parse(response.content)
-        data = sample_data.authstatuslist
-        d = xmltodict.parse(data)
-        d = [d['authStatusOutputList']['authStatusList']['authStatusElements']]
-
-        return d
+        if mac_address:
+            response = ise.get_authlist_by_mac(mac_address)
+            d = xmltodict.parse(response.content)
+            data = sample_data.authstatuslist
+            d = xmltodict.parse(data)
+            d = [d['authStatusOutputList']['authStatusList']['authStatusElements']]
+            return d
 
 class FailureReason(Resource):
     @swagger.doc({
@@ -79,10 +69,7 @@ class FailureReason(Resource):
      })
 
     def get(self):
-        uri = '/admin/API/mnt/FailureReasons'
-        url = "https://172.26.159.217" + uri
-        response = requests.get(url, headers=headers, verify=False)
-        xmlstr = response.content
+        response = ise.get_failure_reasons()
         d = xmltodict.parse(response.content)
         ret = d['failureReasonList']['failureReason']
         objs = [FailureReasonObject.from_dict(r) for r in ret]

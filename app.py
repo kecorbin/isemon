@@ -2,12 +2,16 @@
 from flask import Flask, render_template, request
 # from flask_restful import Api
 
-from views.session import session_list
+from views.session import session_list, session_detail
 from views.patterns import patterns
 from views.authstatus import authstatus_detail
 from views.apidocs import swagger_ui
 
-from api.session import ActiveCount, ActiveList, MacAddress
+from api.session import (ActiveSessionCount,
+                         ActiveSessionList, AuthenticatedSessionList,
+                         SessionDetailByMAC, SessionDetailByIP,
+                         SessionDetailByUser, SessionDetailByNAS)
+
 from api.troubleshooting import AuthStatus, FailureReason
 
 from flask_restful_swagger_2 import swagger, Api
@@ -27,9 +31,16 @@ def index():
     return render_template('index.html')
 
 # session endpoints
-api.add_resource(ActiveList, '/api/session')
-api.add_resource(ActiveCount, '/api/session-count')
-api.add_resource(MacAddress, '/api/session/<string:mac_address>')
+api.add_resource(ActiveSessionList, '/api/session')
+api.add_resource(ActiveSessionCount, '/api/session-count')
+api.add_resource(SessionDetailByMAC, '/api/session/MACAddress/<string:mac_address>')
+api.add_resource(SessionDetailByIP, '/api/session/IPAddress/<string:ip_address>')
+api.add_resource(SessionDetailByUser, '/api/session/UserName/<string:user_name>')
+api.add_resource(SessionDetailByNAS, '/api/session/UserName/<string:nas_ip_address>')
+
+
+
+
 
 # troubleshooting endpoints
 api.add_resource(AuthStatus, '/api/authstatus',
@@ -43,6 +54,7 @@ api.add_resource(FailureReason, '/api/failurereason')
 
 # web views
 app.add_url_rule('/session', endpoint='session-list', view_func=session_list)
+app.add_url_rule('/session/MACAddress/<string:mac_address>', view_func=session_detail)
 app.add_url_rule('/patterns', endpoint='patterns', view_func=patterns)
 app.add_url_rule('/authstatus-test', endpoint='authstatus-detail', view_func=authstatus_detail)
 app.add_url_rule('/apidocs', endpoint='api-docs', view_func=swagger_ui)

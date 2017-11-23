@@ -1,3 +1,137 @@
+from flask_restful_swagger_2 import Schema
+
+class AuthStatusSwaggerModel(Schema):
+      type = "object"
+      properties = {
+        "user_name": {
+          "type": "string",
+          "description": "Username",
+          "example": "john_doe"
+        },
+        "nas_ip_address": {
+          "type": "string",
+          "description": "IP address/hostname for the network access device",
+          "example": "10.77.152.209"
+        },
+        "nas_ipv6_address": {
+          "type": "string",
+          "description": "IPv6 address/hostname for the network access device",
+          "example": "2001:cdba::3257:9652"
+        },
+        "failure_reason": {
+          "type": "string",
+          "description": "Reason for session authentication failure"
+        },
+        "calling_station_id": {
+          "type": "string",
+          "description": "source ip address",
+          "example": "00:0C:29:46:F3:B8"
+        },
+        "nas_port": {
+          "type": "string",
+          "description": "network access server port"
+        },
+        "identity_group": {
+          "type": "string",
+          "description": "a logical group consisting of related users and hosts",
+          "example": "Guest_IDG"
+        },
+        "network_device_name": {
+          "type": "string",
+          "description": "name of the network device",
+          "example": "switch"
+        },
+        "acs_server": {
+          "type": "string",
+          "description": "name of the ISE appliance",
+          "example": "ise-server1.company.com"
+        },
+        "eap_authentication": {
+          "type": "string",
+          "description": "EAP method used for authentication request"
+        },
+        "framed_ip_address": {
+          "type": "string",
+          "description": "address configured for a specific user",
+          "example": "11011"
+        },
+        "framed_ipv6_address": {
+          "type": "string",
+          "description": "address configured for a specific user",
+          "example": "11011"
+        },
+        "network_device_groups": {
+          "type": "string",
+          "description": "a logical group consisting of related network devices"
+        },
+        "access_service": {
+          "type": "string",
+          "description": "applied access service",
+          "example": "11011"
+        },
+        "acs_timestamp": {
+          "type": "string",
+          "description": "timestamp that is associated with the Cisco ISE authentication request",
+          "example": "2017-11-15T10:50:56.515Z"
+        },
+        "authentication_method": {
+          "type": "string",
+          "description": "identifies the method used in authentication",
+          "example": "mab"
+        },
+        "execution_steps": {
+          "type": "string",
+          "description": "list of message codes for each diagnostic message logged while processing the request",
+          "example": "11001,11017,11027,15049,15008,15048,15048,15004,15041,15006,15013,24209,24211,22037,15036,15048,15004,15016,11022,11002"
+        },
+        "radius_response": {
+          "type": "string",
+          "description": "type of RADIUS response e.g VLAN or ACL"
+        },
+        "audit_session_id": {
+          "type": "string",
+          "description": "id of the authentication session",
+          "example": "0A4D98D1000001F26F0C04D9"
+        },
+        "nas_identifier": {
+          "type": "string",
+          "description": "a network access server (NAS) associated with a specific resource"
+        },
+        "nas_port_id": {
+          "type": "string",
+          "description": "id of the NAS port used",
+          "example": "GigabitEthernet1/0/17"
+        },
+        "nac_policy_compliance": {
+          "type": "string",
+          "description": "reflects posture statics (compliant or non-complaint)",
+          "example": "compliant"
+        },
+        "selected_azn_profiles": {
+          "type": "string",
+          "description": "identifies the profile used in authentication",
+          "example": "CWA_Redirect"
+        },
+        "service_type": {
+          "type": "string",
+          "description": "indicates a framed user",
+          "example": "Call Check"
+        },
+        "eap_tunnel": {
+          "type": "string",
+          "description": "tunnel or outer method used for EAP authentication"
+        },
+        "message_code": {
+          "type": "string",
+          "description": "identifier of the audit message that defines the processed request result",
+          "example": "5231"
+        },
+        "destination_ip_address": {
+          "type": "string",
+          "description": "identifies the destination ip address"
+        }
+      }
+    
 
 class AuthStatusObject(object):
     """
