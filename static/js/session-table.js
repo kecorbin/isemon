@@ -1,11 +1,14 @@
 var sessions = $('#session-datatable').DataTable( {
     "pageLength": 15,
     "lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "All"]],
+    'language': {
+      "processing": '<div class="loading-dots loading-dots--muted"><span></span><span></span><span></span></div>'
+    },
+
     "ajax": {
             "type" : "GET",
             "url" : "/api/session",
             "dataSrc": function ( json ) {
-                console.log(json)
                 return json;
             }
             },
@@ -15,8 +18,7 @@ var sessions = $('#session-datatable').DataTable( {
                         "render": function (data, type, row, meta) {
                             mac = row.calling_station_id
                             var url = '<a href="/session/MACAddress/' + mac + '">' + mac + '</a>'
-                            console.log(url)
-                            return url
+                              return url
                         }
                     },
 

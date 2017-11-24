@@ -1,18 +1,21 @@
 {% extends 'base_layout.html' %} {% set active_sidebar = "session-list" %} {% block extra_css %}
 <link rel="stylesheet" href="/static/css/authstatus.css"> {% endblock %} {% block mainpanel %}
 
-  <div class="visibilityDetailView">
+<div class="visibilityDetailView">
   <div id="detailcontainer" class="container">
-    <div class="container">
+
+    <div style="padding-top: 20px" class="container">
       <div class="col-sm-1">
         <span class="icon-computer icon-large"></span>
       </div>
       <div class="col-sm-11">
-        <h3>Authentication Session Detail Report</h3>
-        <div class="divider divider--thick"></div>
         <div>MAC Address:
           <span>
-            <a href="link" onClick="javascript:window.open('http://api.macvendors.com/{{ session.calling_station_id }}','Windows','width=650,height=350,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,location=no,directories=no,status=no');return false")">{{ session.calling_station_id }}</a>
+            {{ session.calling_station_id }}
+            <!-- <a href="link"
+               onClick="javascript:window.open('http://api.macvendors.com/{{ session.calling_station_id }}',
+               'Windows','width=650,height=350,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,
+                location=no,directories=no,status=no');return false")">{{ session.calling_station_id }}</a> -->
           </span>
         </div>
         <div>Username:
@@ -32,31 +35,29 @@
   </div>
   <div class="divider divider--thicker"></div>
   <div class="container">
-    <ul class="list list--loose">
-
-      <li>
-        <div class="col-md-12 subCategory">
-          <div class="panelcontainer">
-            <div class="panel panel--raised-medium">
-              <p>
-                <h6>Details</h6>
-              </p>
-              <div class="responsive-table">
-                <table class="table table--nostripes">
-                  <tbody>
-                    {% for k,v in session.items() %}
-                    <tr>
-                      <td><b>{{k}}</b></td>
-                      <td>{{v}}</td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+    {% include 'steps.html' %}
+    <div class="col-md-12 subCategory">
+      <div class="panelcontainer">
+        <div class="panel panel--raised-medium">
+          <p>
+            <h6>Details</h6>
+          </p>
+          <div class="responsive-table">
+            <table class="table table--nostripes">
+              <tbody>
+                {% for k,v in session.items() %}
+                <tr>
+                  <td><b>{{k}}</b></td>
+                  <td>{{v}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
         </div>
-      </li>
+      </div>
+    </div>
+  </div>
 
 
-{% endblock %}
+  {% endblock %}

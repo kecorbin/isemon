@@ -4,7 +4,7 @@
     {% block head %}
     <head>
         <meta charset="utf-8">
-        <title>ISE Monitoring Portal</title>
+        <title>{% block title %}{{ title }}{% endblock %}</title>
         <link rel="stylesheet" href="/static/css/cui-standard.min.css">
         <link rel="stylesheet" href="/static/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="/static/css/bootstrap.min.css">
@@ -25,7 +25,6 @@
 
     </head>
     {% endblock %}
-
     {% block body %}
     <body class="cui">
 

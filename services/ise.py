@@ -35,6 +35,7 @@ def get_json(url):
     """
     response = get_from_ise(url)
     xmlstr = response.content
+    print response.content
     d = xmltodict.parse(response.content)
     if response.ok:
         return d
@@ -91,17 +92,17 @@ def get_session_details_by_attr(mac_address=None,
 
     return resp
 
-def get_authlist_by_mac(mac_address,
-                        duration="432000",
-                        num_records="100",
-                        verbosity="all"):
+def get_authstatus(mac_address,
+                   duration="432000",
+                   num_records="100",
+                   verbosity="All"):
 
-    uri = "/admin/API/mnt/AuthStatus/{}".format(attr_type, attr_name)
+    uri = "/admin/API/mnt/AuthStatus/MACAddress"
     uri = uri + "/{}/{}/{}/{}".format(mac_address,
                                        duration,
                                        num_records,
                                        verbosity)
-    resp = get_from_ise(uri)
+    resp = get_json(uri)
     return resp
 
 def get_failure_reasons():

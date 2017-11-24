@@ -72,6 +72,7 @@ class ActiveSessionCount(Resource):
         d = xmltodict.parse(response.content)
         return d
 
+
 class AuthenticatedSessionList(Resource):
     """
     You can use the AuthList API call to retrieve a list of all currently active authenticated sessions.
@@ -104,25 +105,12 @@ class ActiveSessionList(Resource):
             # no active sessions
             return []
 
+
 class SessionDetail(Resource):
+    """
+    base class for session details
+    """
     pass
-    # def _get_json(self, **kwargs):
-    #     """
-    #     responsible for fetching data from ISE service, and converting to json
-    #     """
-    #     response = ise.get_session_details_by_attr(**kwargs)
-    #     xmlstr = response.content
-    #     d = xmltodict.parse(response.content)
-    #     if response.ok:
-    #         return d
-    #     elif response.status_code == 500:
-    #         # ISE returns 500 when session data is not found, should be 404
-    #         try:
-    #             error = d['mnt-rest-result']['internal-error-info']
-    #             if "not available" in error:
-    #                 return {"status": "No Session information Found"}, 404
-    #         except:
-    #             return "Server Error", 500
 
 
 class SessionDetailByMAC(SessionDetail):
@@ -147,6 +135,7 @@ class SessionDetailByMAC(SessionDetail):
         response = ise.get_session_details_by_attr(mac_address=mac_address, fmt='json')
         return response
 
+
 class SessionDetailByIP(SessionDetail):
     docs = doc_template
     docs['description'] = "Gets session details based on IP address"
@@ -166,6 +155,7 @@ class SessionDetailByIP(SessionDetail):
         """
         return ise.get_session_details_by_attr(endpoint_ip_address=ip_address, fmt='json')
 
+
 class SessionDetailByUser(SessionDetail):
     docs = doc_template
     docs['description'] = "Gets session details for `user_name`"
@@ -184,6 +174,7 @@ class SessionDetailByUser(SessionDetail):
         returns active session information for `user_name`
         """
         return ise.get_session_details_by_attr(user_name=user_name, fmt='json')
+
 
 class SessionDetailByNAS(SessionDetail):
     docs = doc_template
