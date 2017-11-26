@@ -9,19 +9,20 @@ enum34==1.1.6
 Flask==0.12.2
 Flask-RESTful==0.3.6
 flask-restful-swagger-2==0.35
+gunicorn==19.7.1
 idna==2.6
 ipaddress==1.0.18
+-e git+https://github.com/kecorbin/isemon@a4afaa4f5c200f2314cc08ba651caad2ff351d41#egg=isemon
 itsdangerous==0.24
 Jinja2==2.10
 lxml==4.1.1
 MarkupSafe==1.0
 pycparser==2.18
-pyOpenSSL==17.3.0
+pyOpenSSL==17.4.0
 python-dateutil==2.6.1
 pytz==2017.3
 requests==2.18.4
 six==1.11.0
 urllib3==1.22
 Werkzeug==0.12.2
-XML2Dict==0.2.2
 xmltodict==0.11.0
