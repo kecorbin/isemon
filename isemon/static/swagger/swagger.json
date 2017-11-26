@@ -1,0 +1,365 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Maverick API for Cisco Identity Services Engine.",
+    "version": "0.0.1",
+    "title": "Maverick",
+    "contact": {
+      "name": "imapex",
+      "url": "http://imapex.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "sessions",
+      "description": "Get information about current ISE sessions"
+    },
+    {
+      "name": "authstatus",
+      "description": "Get authentication status information"
+    },
+    {
+      "name": "failure",
+      "description": "Get failure reason information"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/session": {
+      "get": {
+        "tags": [
+          "sessions"
+        ],
+        "summary": "retrieve active session",
+        "description": "The following simple session list API calls let you quickly gather session-related information such as the MAC address, the network access device (NAD) IP address, user name, and session ID associated with a current active session on a target Cisco Monitoring ISE node in your Cisco ISE deployment",
+        "operationId": "getActiveSessions",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/activeSessionList"
+            }
+          }
+        }
+      }
+    },
+    "/authstatus/{mac_address}": {
+      "get": {
+        "tags": [
+          "authstatus"
+        ],
+        "summary": "retrieve authorization status information",
+        "description": "You can use the AuthStatus API call to check the authentication status of sessions on the target node. The query associated with this API call requires at least one MAC address to be searched for a match, with a user-configurable limit of the most recent records for the specified MAC address returned.",
+        "operationId": "getAuthStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mac_address",
+            "type": "string",
+            "required": true,
+            "description": "mac address to retrieve information about"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/authStatusOutputList"
+            }
+          }
+        }
+      }
+    },
+    "/failurereasons": {
+      "get": {
+        "tags": [
+          "failure"
+        ],
+        "summary": "retrieve active session",
+        "description": "The following simple session list API calls let you quickly gather session-related information such as the MAC address, the network access device (NAD) IP address, user name, and session ID associated with a current active session on a target Cisco Monitoring ISE node in your Cisco ISE deployment",
+        "operationId": "getFailureReasons",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/failureReasonList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "definitions": {
+    "activeSession": {
+      "type": "object",
+      "properties": {
+        "user_name": {
+          "type": "string",
+          "description": "the username for this session"
+        },
+        "calling_station_id": {
+          "type": "string",
+          "description": "unique identifier for this device, this is usually the mac address"
+        },
+        "nas_ip_address": {
+          "type": "string",
+          "description": "the ip address of the network access server"
+        },
+        "nas_ipv6_address": {
+          "type": "string",
+          "description": "the ipv6 address of the network access server, if applicable"
+        },
+        "audit_session_id": {
+          "type": "string",
+          "description": "audit session id"
+        },
+        "acct_session_id": {
+          "type": "string",
+          "description": "accounting session id"
+        },
+        "server": {
+          "type": "string",
+          "description": "the authorizing ISE server"
+        }
+      },
+      "xml": {
+        "name": "activeSession"
+      }
+    },
+    "activeSessionList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/activeSession"
+      },
+      "xml": {
+        "name": "activeSessionList"
+      }
+    },
+    "FailureReason": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "failure reason id",
+          "example": "11011"
+        },
+        "code": {
+          "type": "string",
+          "description": "failure code",
+          "example": "11011 RADIUS listener failed"
+        },
+        "cause": {
+          "type": "string",
+          "description": "a brief description of the cause of this failure",
+          "example": "Could not open one or more of the ports used to receive RADIUS requests"
+        },
+        "resolution": {
+          "type": "string",
+          "description": "recommended steps to resolve",
+          "example": "Ensure that the ports 1812, 1813, 1645 and 1646 are not being used by another process on the system"
+        }
+      },
+      "xml": {
+        "name": "failureReason"
+      }
+    },
+    "failureReasonList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FailureReason"
+      },
+      "xml": {
+        "name": "failureReasonList"
+      }
+    },
+    "AuthStatus": {
+      "type": "object",
+      "properties": {
+        "user_name": {
+          "type": "string",
+          "description": "Username",
+          "example": "john_doe"
+        },
+        "nas_ip_address": {
+          "type": "string",
+          "description": "IP address/hostname for the network access device",
+          "example": "10.77.152.209"
+        },
+        "nas_ipv6_address": {
+          "type": "string",
+          "description": "IPv6 address/hostname for the network access device",
+          "example": "2001:cdba::3257:9652"
+        },
+        "failure_reason": {
+          "type": "string",
+          "description": "Reason for session authentication failure"
+        },
+        "calling_station_id": {
+          "type": "string",
+          "description": "source ip address",
+          "example": "00:0C:29:46:F3:B8"
+        },
+        "nas_port": {
+          "type": "string",
+          "description": "network access server port"
+        },
+        "identity_group": {
+          "type": "string",
+          "description": "a logical group consisting of related users and hosts",
+          "example": "Guest_IDG"
+        },
+        "network_device_name": {
+          "type": "string",
+          "description": "name of the network device",
+          "example": "switch"
+        },
+        "acs_server": {
+          "type": "string",
+          "description": "name of the ISE appliance",
+          "example": "ise-server1.company.com"
+        },
+        "eap_authentication": {
+          "type": "string",
+          "description": "EAP method used for authentication request"
+        },
+        "framed_ip_address": {
+          "type": "string",
+          "description": "address configured for a specific user",
+          "example": "11011"
+        },
+        "framed_ipv6_address": {
+          "type": "string",
+          "description": "address configured for a specific user",
+          "example": "11011"
+        },
+        "network_device_groups": {
+          "type": "string",
+          "description": "a logical group consisting of related network devices"
+        },
+        "access_service": {
+          "type": "string",
+          "description": "applied access service",
+          "example": "11011"
+        },
+        "acs_timestamp": {
+          "type": "string",
+          "description": "timestamp that is associated with the Cisco ISE authentication request",
+          "example": "2017-11-15T10:50:56.515Z"
+        },
+        "authentication_method": {
+          "type": "string",
+          "description": "identifies the method used in authentication",
+          "example": "mab"
+        },
+        "execution_steps": {
+          "type": "string",
+          "description": "list of message codes for each diagnostic message logged while processing the request",
+          "example": "11001,11017,11027,15049,15008,15048,15048,15004,15041,15006,15013,24209,24211,22037,15036,15048,15004,15016,11022,11002"
+        },
+        "radius_response": {
+          "type": "string",
+          "description": "type of RADIUS response e.g VLAN or ACL"
+        },
+        "audit_session_id": {
+          "type": "string",
+          "description": "id of the authentication session",
+          "example": "0A4D98D1000001F26F0C04D9"
+        },
+        "nas_identifier": {
+          "type": "string",
+          "description": "a network access server (NAS) associated with a specific resource"
+        },
+        "nas_port_id": {
+          "type": "string",
+          "description": "id of the NAS port used",
+          "example": "GigabitEthernet1/0/17"
+        },
+        "nac_policy_compliance": {
+          "type": "string",
+          "description": "reflects posture statics (compliant or non-complaint)",
+          "example": "compliant"
+        },
+        "selected_azn_profiles": {
+          "type": "string",
+          "description": "identifies the profile used in authentication",
+          "example": "CWA_Redirect"
+        },
+        "service_type": {
+          "type": "string",
+          "description": "indicates a framed user",
+          "example": "Call Check"
+        },
+        "eap_tunnel": {
+          "type": "string",
+          "description": "tunnel or outer method used for EAP authentication"
+        },
+        "message_code": {
+          "type": "string",
+          "description": "identifier of the audit message that defines the processed request result",
+          "example": "5231"
+        },
+        "destination_ip_address": {
+          "type": "string",
+          "description": "identifies the destination ip address"
+        }
+      }
+    },
+    "authStatusOutputList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AuthStatus"
+      },
+      "xml": {
+        "name": "authStatusOutputList"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about the ISE Monitoring REST APIs",
+    "url": "https://www.cisco.com/c/en/us/td/docs/security/ise/2-0/api_ref_guide/api_ref_book/ise_api_ref_ch1.html"
+  }
+}

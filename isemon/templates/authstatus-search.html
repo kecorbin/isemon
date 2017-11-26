@@ -1,0 +1,28 @@
+{% extends 'base_layout.html' %}
+{% set active_sidebar = "session-history-search" %}
+{% block mainpanel %}
+
+<div class="container" style="padding-top: 20px">
+  Please enter a MAC address to search for
+<div class="row">
+    <div class="col-md-6">
+        <form action="#" method="POST">
+            <div class="form-group">
+                <div class="form-group__text">
+                    <input name="mac-addr" id="mac-addr" type="text", placeholder="00:11:22:33:44:55">
+                    <label for="mac-addr">MAC Address</label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% block results %}
+{% endblock %}
+<script src="/static/js/search.js"></script>
+
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}
