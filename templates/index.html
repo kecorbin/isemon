@@ -2,6 +2,23 @@
 
 {% block mainpanel %}
 
-Welcome to the IMAPEX boilerplate
+<h1 id="isemonisemonitoringportal">isemon - ISE Monitoring Portal</h1>
+
+<h1 id="description">Description</h1>
+
+<p>isemon is a self-service portal for accessing authorization information from
+Cisco Identity Services Engine.</p>
+
+<h2 id="problem">Problem</h2>
+
+<p>ISE supports a finite number of concurrent user logins (20). There is a requirement
+for large sets of users that will require information from ISE to enable support
+and troubleshooting processes.</p>
+
+<h2 id="solution">Solution</h2>
+
+<p>Leverage ISE APIs to view required information without the need for the user to log in to ISE.
+The proposed solution is to build a portal that will make the required API calls to ISE.
+Support teams would have access to this portal, and will be enabled to query information from ISE as needed.</p>
 
 {% endblock %}
