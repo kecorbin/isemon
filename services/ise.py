@@ -21,7 +21,6 @@ def get_from_ise(uri):
         'accept': "application/xml",
         }
     url = BASE_URL + uri
-    print("Fetching {} from ISE: ".format(url)),
     response = requests.get(url,
                             headers=headers,
                             auth=HTTPBasicAuth(USERNAME, PASSWORD),
@@ -35,7 +34,6 @@ def get_json(url):
     """
     response = get_from_ise(url)
     xmlstr = response.content
-    print response.content
     d = xmltodict.parse(response.content)
     if response.ok:
         return d

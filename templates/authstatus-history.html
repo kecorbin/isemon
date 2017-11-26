@@ -1,5 +1,8 @@
-{% extends 'base_layout.html' %} {% set active_sidebar = "session-list" %} {% block extra_css %}
-<link rel="stylesheet" href="/static/css/authstatus.css"> {% endblock %} {% block mainpanel %}
+{% extends 'authstatus-search.html' %} {% set active_sidebar = "session-list" %} {% block extra_css %}
+<link rel="stylesheet" href="/static/css/authstatus.css"> {% endblock %}
+
+
+{% block results %}
 
 <div class="timeline">
     <div class="timeline__list">
@@ -48,12 +51,35 @@
             </tbody>
           </table>
         </div>
+        <div class="base-margin-top">
+             <div class="flex">
+                 <a class="markup-toggle link">
+                     <span class="markup-label">View Details</span>
+                     <span class="markup-chevron icon-chevron-up qtr-margin-left"></span>
+                 </a>
+             </div>
+
+             <div class="markup-code panel panel--bordered panel--well hide qtr-margin-top">
+                  <div class="responsive-table">
+                   <table class="table table--nostripes table--fixed table--wrap">
+                     <tbody>
+                       {% for k,v in as.items() %}
+                       <tr>
+                         <td><b>{{k}}</b></td>
+                         <td class="word-wrap">{{v}}</td>
+                       </tr>
+                       {% endfor %}
+                     </tbody>
+                   </table>
+                 </div>
+               </div>
+
+         </div>
+
+         </div>
 
 
-          <!-- <div class="text-bold">Details</div> -->
-          <!-- <div>{{as}}</div>
-          <div></div>
-          <a>link</a> -->
+
       </div>
   </div>
 
