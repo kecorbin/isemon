@@ -26,8 +26,7 @@ Support teams would have access to this portal, and will be enabled to query inf
 
 Prerequisites
 
-* Python 2.7+
-* [setuptools package](https://pypi.python.org/pypi/setuptools)
+* Docker
 
 ## Downloading
 
@@ -43,13 +42,14 @@ If you have git installed, clone the repository
 
 ## Installing
 
-Provide instructions on how to install / use the application
+After you've cloned the repo, build a docker container and run it!
 
-# Usage
 
-Provide any relevant code samples / CLI's to leverage the code
+*NOTE:* make sure to change the ISE settings to match your environment
 
-    python app.py
+cd isemon
+docker build -t isemon .
+docker run -d -p  8000:8000 -e ISE_SERVER=my-ise-server.company.com -e ISE_USERNAME=admin -e ISE_PASSWORD=password isemon
 
 
 # Development

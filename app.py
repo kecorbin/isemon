@@ -60,4 +60,4 @@ app.add_url_rule('/apidocs', endpoint='api-docs', view_func=swagger_ui)
 
 if __name__ == '__main__':
     app.secret_key = "dktm872xl2sxx9vmelSFJ2jsLEEFLx"
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
