@@ -51,9 +51,9 @@ api.add_resource(FailureReason, '/api/failurereason')
 # web views
 app.add_url_rule('/session', endpoint='session-list', view_func=session_list)
 app.add_url_rule('/session/MACAddress/<string:mac_address>', view_func=session_detail)
-# app.add_url_rule('/history/MACAddress/<string:mac_address>',
-#                  endpoint='session-history-results',
-#                  view_func=authstatus_history)
+app.add_url_rule('/history/MACAddress/<string:mac_address>',
+                 endpoint='session-history-results',
+                 view_func=authstatus_history)
 app.add_url_rule('/history/', endpoint="session-history", methods=["GET", "POST"], view_func=authstatus_search)
 app.add_url_rule('/patterns', endpoint='patterns', view_func=patterns)
 app.add_url_rule('/apidocs', endpoint='api-docs', view_func=swagger_ui)

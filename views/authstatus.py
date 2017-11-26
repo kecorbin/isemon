@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
 from api.sample_data import authstatuslist
 from api.models.authstatus import AuthStatusObject
-from services.ise import get_authstatus
+from services.ise import get_authstatus, get_active_list_json
 from utils.helpers import fixup_steps, expand_other_attributes
 
 def authstatus_search():
@@ -20,7 +20,10 @@ def authstatus_search():
         # print mac_addr
         return authstatus_history(mac_address=mac_addr)
     else:
-        return render_template('authstatus-search.html', title="Session History Search")
+        sessions = get_active_list_json()
+        return render_template('authstatus-search.html',
+                               sessions=sessions,
+                               title="Session History Search")
 
 def authstatus_history(mac_address=None):
     if mac_address:

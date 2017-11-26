@@ -1,24 +1,37 @@
-{% extends 'base_layout.html' %}
-{% set active_sidebar = "session-history-search" %}
-{% block mainpanel %}
+`{% extends 'base_layout.html' %} {% set active_sidebar = "session-history-search" %} {% block mainpanel %}
 
 <div class="container" style="padding-top: 20px">
   Please enter a MAC address to search for
-<div class="row">
+  <div class="row">
     <div class="col-md-6">
-        <form id="macform" action="#" method="POST">
-            <div class="form-group">
-                <div class="form-group__text">
-                    <input name="mac-addr" id="mac-addr" type="text", placeholder="00:11:22:33:44:55">
-                    <label for="mac-addr">MAC Address</label>
-                </div>
-            </div>
-        </form>
+      <form id="macform" action="#" method="POST">
+        <div class="form-group">
+          <div class="form-group__text">
+            <input name="mac-addr" id="mac-addr" type="text" , placeholder="00:11:22:33:44:55">
+            <label for="mac-addr">MAC Address</label>
+          </div>
+        </div>
+      </form>
     </div>
     <button type="submit" form="macform" class="btn btn--primary btn--small btn--wide">Search</button></li>
-</div>
+  </div>
 
-{% block results %}
+  {% block results %}
+
+  <h4 style="padding-top: 20px; padding-bottom: 20px">Or you can checkout the history of some of the current sessions....</h4>
+
+  <table style="padding-top: 20px">
+    <thead>
+      <td>MAC Address</td>
+      <td>Username</td>
+    </thead>
+    {% for s in sessions['activeList']['activeSession'] %}
+    <tr>
+      <td><a href="{{url_for('session-history-results', mac_address=s.calling_station_id)}}">{{s.calling_station_id}}</td>
+<td>{{s.user_name}}</td>
+</tr>
+{% endfor %}
+</table>
 {% endblock %}
 <script src="/static/js/search.js"></script>
 
@@ -27,3 +40,4 @@
 
 {% block footer %}
 {% endblock %}
+`

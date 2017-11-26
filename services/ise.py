@@ -57,6 +57,11 @@ def get_active_list():
     resp = get_from_ise(uri)
     return resp
 
+def get_active_list_json():
+    uri = "/admin/API/mnt/Session/ActiveList"
+    resp = get_json(uri)
+    return resp
+
 def get_authenticated_list():
     uri = "/admin/API/mnt/Session/AuthList"
     resp = get_from_ise(uri)
