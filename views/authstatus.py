@@ -21,12 +21,14 @@ def authstatus_search():
         return authstatus_history(mac_address=mac_addr)
     else:
         sessions = get_active_list_json()
+        print(sessions)
         return render_template('authstatus-search.html',
                                sessions=sessions,
                                title="Session History Search")
 
 def authstatus_history(mac_address=None):
     if mac_address:
+        print("Finding AutStatus history for MAC: {}".format(mac_address))
         data = get_authstatus(mac_address)
         try:
             d = data['authStatusOutputList']['authStatusList']['authStatusElements']

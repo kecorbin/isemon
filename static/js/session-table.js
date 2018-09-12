@@ -31,6 +31,6 @@ var sessions = $('#session-datatable').DataTable( {
 
 
 // auto refresh the datatable
-setInterval( function () {
-    sessions.ajax.reload();
-}, 10000 );
+// setInterval( function () {
+//     sessions.ajax.reload();
+// }, 10000 );
