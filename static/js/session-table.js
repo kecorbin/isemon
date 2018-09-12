@@ -8,6 +8,7 @@ var sessions = $('#session-datatable').DataTable( {
     "ajax": {
             "type" : "GET",
             "url" : "/api/session",
+            "timeout": 60,
             "dataSrc": function ( json ) {
                 return json;
             }
